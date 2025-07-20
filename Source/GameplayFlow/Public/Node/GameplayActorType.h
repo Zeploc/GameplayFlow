@@ -3,10 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ConditionFlowNode.h"
-#include "GameplayEffectTypes.h"
-#include "AbilityConditions.generated.h"
-
+#include "GameplayTagContainer.h"
+#include "UObject/Object.h"
+#include "GameplayActorType.generated.h"
 
 UCLASS(Abstract, Blueprintable, EditInlineNew, CollapseCategories)
 class GAMEPLAYFLOW_API UGameplayActorType : public UObject
@@ -23,6 +22,11 @@ public:
 	virtual void Register();
 	virtual AActor* GetActor() const;
 	virtual void CleanUp();
+
+	UFUNCTION(BlueprintPure, Category="Gameplay Actor Type")
+	virtual FString GetNodeDisplay() const;
+	UFUNCTION(BlueprintPure, Category="Gameplay Actor Type")
+	virtual FString GetDebugDisplay() const;
 
 protected:
 	UPROPERTY()
@@ -67,6 +71,8 @@ class GAMEPLAYFLOW_API UGameplayActorType_LevelActor : public UGameplayActorType
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Actor")
 	TSoftObjectPtr<AActor> TargetActor;
+	
+	virtual FString GetNodeDisplay() const override;
 
 	// TODO: Hook into dynamic spawning in
 	
@@ -74,55 +80,24 @@ protected:
 	virtual AActor* TryResolveActor() override;
 };
 
-// TODO: Instigator
+// TODO: Instigator Still needed??
 
 // TODO: By class
-	
-/**
- * 
- */
-UCLASS(abstract)
-class GAMEPLAYFLOW_API UGameplayFlowAbilityCondition : public UGameplayFlowCondition
-{
-	GENERATED_BODY()
 
-public:	
-	/* Actor target to query */
-	UPROPERTY(EditAnywhere, Instanced)
-	TObjectPtr<UGameplayActorType> ActorTarget;
 
-	UFUNCTION(BlueprintPure)
-	AActor* GetTargetActor() const;
-
-protected:
-	virtual void ExecuteInput(const FName& PinName) override;
-	virtual void Cleanup() override;
-	virtual void BindActorEvents();
-	/* Called when the actor is removed or the event condition is cleaned up */
-	virtual void CleanUpActorEvents();
-	virtual bool EvaluatePredicate_Implementation() const override;
-
-	UPROPERTY(BlueprintReadOnly)
-	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
-};
-
-UCLASS(DisplayName="Tag Criteria")
-class GAMEPLAYFLOW_API UGameplayFlowTagsCondition : public UGameplayFlowAbilityCondition
-{
-	GENERATED_BODY()
-
-public:	
-	/* Tag criteria for actor */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Actor", meta = (DisplayAfter="ActorType"))
-	FGameplayTagRequirements TagRequirements;
-
-protected:
-	virtual void BindActorEvents() override;
-	virtual void CleanUpActorEvents() override;
-	
-	virtual bool EvaluatePredicate_Implementation() const override;
-	FGameplayTagContainer GetAllConditionalTags() const;
-
-	UFUNCTION()
-	void OnTagsChanged(const FGameplayTag Tag, int32 Count);
-};
+// UCLASS(BlueprintType, editinlinenew, collapseCategories, meta = (DisplayName = "Tag Count Match"))
+// class UEditableGameplayTagQueryExpression_TagCountMatch : public UEditableGameplayTagQueryExpression
+// {
+// 	GENERATED_BODY()
+// public:
+// 	UPROPERTY(EditDefaultsOnly, Category = Expr)
+// 	FGameplayTagContainer Tags;
+// 	UPROPERTY(EditDefaultsOnly, Category = Expr)
+// 	int32 RequiredTagCount;
+// 	UPROPERTY(EditDefaultsOnly, Category = Expr)
+// 	bool bExactOnly;
+//
+// #if WITH_EDITOR
+// 	virtual void EmitTokens(TArray<uint8>& TokenStream, TArray<FGameplayTag>& TagDictionary, FString* DebugString = nullptr) const override;
+// #endif  // WITH_EDITOR
+// };

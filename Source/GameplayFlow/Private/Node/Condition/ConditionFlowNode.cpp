@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Condition/ConditionFlowNode.h"
+#include "Node/Condition/ConditionFlowNode.h"
 
 #include "AddOns/FlowNodeAddOn_PredicateAND.h"
 
@@ -13,7 +13,7 @@ void UGameplayFlowCondition::Cleanup()
 }
 
 UConditionGameplayFlowNode::UConditionGameplayFlowNode()
-{
+{	
 	OutputPins.Empty();
 	OutputPins.Add(FFlowPin(ConditionsMetPinName));
 	OutputPins.Add(FFlowPin(ConditionsUnmetPinName));
@@ -65,6 +65,7 @@ void UConditionGameplayFlowNode::OnEventConditionChanged(UGameplayFlowCondition*
 void UConditionGameplayFlowNode::Cleanup()
 {
 	Super::Cleanup();
+	TriggeredCount = 0;
 }
 
 void UConditionGameplayFlowNode::UpdateConditionState()
@@ -90,6 +91,10 @@ void UConditionGameplayFlowNode::UpdateConditionState()
 		return;
 	}
 	bConditionsMet = bNewConditionMet;
+	if (bConditionsMet)
+	{
+		TriggeredCount++;
+	}
 	// Only finish if trigger once, otherwise should continue to trigger
 	const bool bFinish = bConditionsMet && bTriggerOnce;
 	TriggerOutput(bConditionsMet ? ConditionsMetPinName : ConditionsUnmetPinName, bFinish);

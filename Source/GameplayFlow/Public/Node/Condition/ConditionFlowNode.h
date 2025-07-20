@@ -17,7 +17,7 @@ class GAMEPLAYFLOW_API UGameplayFlowCondition
 	
 public:
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEventConditionChanged, UGameplayFlowCondition*, EventCondition);
-	UPROPERTY(BlueprintAssignable)
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnEventConditionChanged OnEventConditionChanged;
 	
 	// virtual void Register() { }
@@ -25,7 +25,7 @@ public:
 };
 
 /**
- * 
+ * Handles latent conditional checks, which will recheck the conditions when a state changes and fire off once the condtions are met
  */
 UCLASS(NotBlueprintable, Category="Gameplay Flow", meta=(DisplayName="Latent Condition"))
 class GAMEPLAYFLOW_API UConditionGameplayFlowNode : public UFlowNode
@@ -35,11 +35,11 @@ class GAMEPLAYFLOW_API UConditionGameplayFlowNode : public UFlowNode
 public:
 	UConditionGameplayFlowNode();
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)//, Instanced)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Debug")
 	TArray<TObjectPtr<UGameplayFlowCondition>> Conditions;
 	
 #if WITH_EDITORONLY_DATA
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Debug")
 	int32 TriggeredCount = 0;
 #endif
 	
