@@ -5,13 +5,14 @@
 #include "GameFramework/GameplayFlowDistributor.h"
 
 #include "Components/BrushComponent.h"
+#include "GameFramework/TriggerFlowDistributor.h"
 
 
 AGameplayFlowVolume::AGameplayFlowVolume()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	FlowDistributorComponent = CreateDefaultSubobject<UGameplayFlowDistributor>("Flow Distributor");
+	FlowDistributorComponent = CreateDefaultSubobject<UTriggerFlowDistributor>("Flow Distributor");
 }
 
 void AGameplayFlowVolume::BeginPlay()
@@ -23,16 +24,5 @@ void AGameplayFlowVolume::BeginPlay()
 	{
 		return;
 	}
-	TriggerBrushComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &AGameplayFlowVolume::ActorBeginOverlap);
-	TriggerBrushComponent->OnComponentEndOverlap.AddUniqueDynamic(this, &AGameplayFlowVolume::ActorEndOverlap);
-}
-
-void AGameplayFlowVolume::ActorBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	FlowDistributorComponent->DistributeFlow(OtherActor);
-}
-
-void AGameplayFlowVolume::ActorEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
-{
-	FlowDistributorComponent->SendEvent(OtherActor, EndTriggerEventName);
+	FlowDistributorComponent->SetTriggerComponent(TriggerBrushComponent);
 }
