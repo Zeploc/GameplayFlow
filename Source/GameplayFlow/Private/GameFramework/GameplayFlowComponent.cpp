@@ -9,8 +9,19 @@ UGameplayFlowComponent::UGameplayFlowComponent()
 	
 }
 
+void UGameplayFlowComponent::SetFlowInstigator(const TObjectPtr<AActor>& NewFlowInstigator)
+{
+	FlowInstigator = NewFlowInstigator;
+}
+
 void UGameplayFlowComponent::BeginPlay()
 {
+	if (!FlowInstigator)
+	{
+		// Default to owner, set before blueprint begin play
+		FlowInstigator = GetOwner();
+	}
+	
 	Super::BeginPlay();
 
 	// TODO: Handle if flow started from elsewhere, grab that flow instance and trigger event

@@ -19,6 +19,15 @@ public:
 
 	// TODO: Inline/instanced option (hide owning flow asset?) or set to this instance and clicking on that displays graph?
 
+	void SetFlowInstigator(const TObjectPtr<AActor>& NewFlowInstigator);
+
+	/* Gets the instigator for this flow, will default to owner unless distributed by another actor */
+	UFUNCTION(BlueprintPure)
+	AActor* GetFlowInstigator() const { return FlowInstigator; }
+
 protected:
 	virtual void BeginPlay() override;
+	
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<AActor> FlowInstigator;
 };

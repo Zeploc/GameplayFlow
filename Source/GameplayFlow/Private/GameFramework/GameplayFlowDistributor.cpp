@@ -38,6 +38,7 @@ void UGameplayFlowDistributor::DistributeFlow(AActor* TargetActor)
 	const FString ComponentName = FString::Printf(TEXT("%s_%s_%i"), *GetOwner()->GetName(), *FlowAsset->GetName(), FlowComponents.FindOrAdd(TargetActor).Num());	
 	UGameplayFlowComponent* GameplayFlowComponent = NewObject<UGameplayFlowComponent>(TargetActor, FlowComponentClass, FName(ComponentName));
 	GameplayFlowComponent->RootFlow = FlowAsset;
+	GameplayFlowComponent->SetFlowInstigator(GetOwner());
 	GameplayFlowComponent->RegisterComponent();
 	FlowComponents.FindOrAdd(TargetActor).Add(GameplayFlowComponent);
 	// TODO: Bind event to when the flow is finished to remove the component

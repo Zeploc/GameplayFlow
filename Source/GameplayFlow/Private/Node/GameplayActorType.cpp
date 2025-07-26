@@ -3,6 +3,7 @@
 #include "Node/GameplayActorType.h"
 
 #include "FlowAsset.h"
+#include "GameFramework/GameplayFlowComponent.h"
 #include "Kismet/GameplayStatics.h"
 
 void UGameplayActorType::Register()
@@ -57,6 +58,21 @@ AActor* UGameplayActorType_Owner::TryResolveActor()
 		return nullptr;
 	}
 	return ActorComponent->GetOwner();
+}
+
+AActor* UGameplayActorType_Instigator::TryResolveActor()
+{
+	UFlowAsset* FlowAsset = GetTypedOuter<UFlowAsset>();
+	if (!FlowAsset)
+	{
+		return nullptr;
+	}
+	TWeakObjectPtr<UGameplayFlowComponent> GameplayFlowComponent = FlowAsset->GetOwner<UGameplayFlowComponent>();
+	if (!GameplayFlowComponent.IsValid())
+	{
+		return nullptr;
+	}
+	return GameplayFlowComponent->GetFlowInstigator();
 }
 
 FString UGameplayActorType_LevelActor::GetNodeDisplay() const

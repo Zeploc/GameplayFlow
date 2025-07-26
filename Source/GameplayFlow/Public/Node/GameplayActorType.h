@@ -67,6 +67,15 @@ protected:
 	virtual AActor* TryResolveActor() override;	
 };
 
+UCLASS(DisplayName="Instigator")
+class GAMEPLAYFLOW_API UGameplayActorType_Instigator : public UGameplayActorType
+{
+	GENERATED_BODY()
+	
+protected:
+	virtual AActor* TryResolveActor() override;	
+};
+
 UCLASS(DisplayName="Level Actor")
 class GAMEPLAYFLOW_API UGameplayActorType_LevelActor : public UGameplayActorType
 {
