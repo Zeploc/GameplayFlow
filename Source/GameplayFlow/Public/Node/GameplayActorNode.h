@@ -26,6 +26,7 @@ public:
 	virtual void Cleanup() override;
 
 #if WITH_EDITORONLY_DATA
+	virtual void PostLoad() override;
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif
 	// TODO: End execute pin

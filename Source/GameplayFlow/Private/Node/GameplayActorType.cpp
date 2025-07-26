@@ -22,6 +22,23 @@ void UGameplayActorType::ItemFound(AActor* RegisteredItem)
 	TryRegisterActor();
 }
 
+void UGameplayActorType::TrySetDefaultActorTarget(UObject* Outer, TObjectPtr<UGameplayActorType>& ActorTarget)
+{
+	if (ActorTarget)
+	{
+		// Already set
+		return;
+	}
+	if (!IsValid(Outer))
+	{
+		// Not valid outer
+		return;
+	}
+	EObjectFlags Flags = RF_Public;
+	Flags = Flags | (Outer->GetOuter() && Outer->GetOuter()->HasAnyFlags(RF_ClassDefaultObject) ? RF_ArchetypeObject : RF_NoFlags);
+	ActorTarget = NewObject<UGameplayActorType_Owner>(Outer, UGameplayActorType_Owner::StaticClass(), NAME_None, Flags);
+}
+
 AActor* UGameplayActorType_Player::TryResolveActor()
 {
 	return UGameplayStatics::GetPlayerPawn(this, 0);

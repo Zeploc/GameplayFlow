@@ -28,6 +28,10 @@ public:
 	UFUNCTION(BlueprintPure, Category="Gameplay Actor Type")
 	virtual FString GetDebugDisplay() const;
 
+#if WITH_EDITOR
+	static void TrySetDefaultActorTarget(UObject* Outer, TObjectPtr<UGameplayActorType>& ActorTarget);
+#endif
+	
 protected:
 	UPROPERTY()
 	TObjectPtr<AActor> FoundLiveActor;
@@ -83,21 +87,3 @@ protected:
 // TODO: Instigator Still needed??
 
 // TODO: By class
-
-
-// UCLASS(BlueprintType, editinlinenew, collapseCategories, meta = (DisplayName = "Tag Count Match"))
-// class UEditableGameplayTagQueryExpression_TagCountMatch : public UEditableGameplayTagQueryExpression
-// {
-// 	GENERATED_BODY()
-// public:
-// 	UPROPERTY(EditDefaultsOnly, Category = Expr)
-// 	FGameplayTagContainer Tags;
-// 	UPROPERTY(EditDefaultsOnly, Category = Expr)
-// 	int32 RequiredTagCount;
-// 	UPROPERTY(EditDefaultsOnly, Category = Expr)
-// 	bool bExactOnly;
-//
-// #if WITH_EDITOR
-// 	virtual void EmitTokens(TArray<uint8>& TokenStream, TArray<FGameplayTag>& TagDictionary, FString* DebugString = nullptr) const override;
-// #endif  // WITH_EDITOR
-// };

@@ -87,16 +87,15 @@ bool UGameplayFlowAbilityCondition::EvaluatePredicate_Implementation() const
 
 
 #if WITH_EDITORONLY_DATA
+void UGameplayFlowAbilityCondition::PostLoad()
+{
+	Super::PostLoad();
+	UGameplayActorType::TrySetDefaultActorTarget(this, ActorTarget);
+}
 void UGameplayFlowAbilityCondition::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {
 	Super::PostEditChangeProperty(PropertyChangedEvent);
-	// TODO: Verify works
-	if (!ActorTarget)
-	{
-		EObjectFlags Flags = RF_Public;
-		Flags = Flags | (GetOuter() && GetOuter()->HasAnyFlags(RF_ClassDefaultObject) ? RF_ArchetypeObject : RF_NoFlags);
-		ActorTarget = NewObject<UGameplayActorType_Owner>(this, UGameplayActorType_Owner::StaticClass(), NAME_None, Flags);
-	}
+	UGameplayActorType::TrySetDefaultActorTarget(this, ActorTarget);
 }
 
 FText UGameplayFlowAbilityCondition::GetNodeTitle() const

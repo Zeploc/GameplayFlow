@@ -40,7 +40,9 @@ protected:
 	virtual bool EvaluatePredicate_Implementation() const override;
 	
 #if WITH_EDITORONLY_DATA
-	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;	
+	// TODO: Not called when added addon to node
+	virtual void PostLoad() override;
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 	virtual FText GetNodeTitle() const override;
 #endif
 
