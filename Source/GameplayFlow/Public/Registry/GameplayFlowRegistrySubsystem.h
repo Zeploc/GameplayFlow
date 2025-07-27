@@ -9,7 +9,7 @@
 class IGameplayFlowRegistryInterface;
 
 /**
- * 
+ * Handles the Registry object
  */
 UCLASS(Config = Game)
 class GAMEPLAYFLOW_API UGameplayFlowRegistrySubsystem : public UGameInstanceSubsystem

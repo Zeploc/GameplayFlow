@@ -22,7 +22,7 @@ public:
 };
 
 /**
- * 
+ * The main manager for registrering actors and linking to them
  */
 UCLASS()
 class GAMEPLAYFLOW_API UGameplayFlowRegistry : public UObject, public IGameplayFlowRegistryInterface
