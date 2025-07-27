@@ -12,6 +12,12 @@ class UGameplayFlowRegistryInterface : public UInterface
 	GENERATED_BODY()
 };
 
+/**
+ * Interface for gameplay flow registry lifecycle management.
+ *
+ * Declares methods for initializing and cleaning up the registry. Implementations should provide logic to set up and tear down any resources or state required for gameplay flow registration.
+ * @returns True if the operation succeeds; false otherwise.
+ */
 class IGameplayFlowRegistryInterface
 {
 	GENERATED_BODY()

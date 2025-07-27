@@ -12,7 +12,15 @@ class IGameplayFlowRegistryInterface;
  * Handles the Registry object
  */
 UCLASS(Config = Game)
-class GAMEPLAYFLOW_API UGameplayFlowRegistrySubsystem : public UGameInstanceSubsystem
+class /**
+ * Subsystem for managing a gameplay flow registry within the game instance.
+ *
+ * Provides methods to initialize, retrieve, and deinitialize a registry object implementing the IGameplayFlowRegistryInterface.
+ * The registry can be set from an existing interface or instantiated from a specified class.
+ *
+ * @returns The current gameplay flow registry interface when calling GetRegistry().
+ */
+GAMEPLAYFLOW_API UGameplayFlowRegistrySubsystem : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 
