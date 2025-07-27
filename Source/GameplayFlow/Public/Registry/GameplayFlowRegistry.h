@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Skyward Studios. All Rights Reserved.
 
 #pragma once
 
@@ -22,7 +22,10 @@ public:
 };
 
 /**
- * The main manager for registrering actors and linking to them
+* * The main manager for registering actors and linking to them.
+  * Handles initialization and cleanup of gameplay flow registry functionality.
+  * Initialize() should be called before using registry features.
+  * Cleanup() should be called to properly release resources.
  */
 UCLASS()
 class GAMEPLAYFLOW_API UGameplayFlowRegistry : public UObject, public IGameplayFlowRegistryInterface

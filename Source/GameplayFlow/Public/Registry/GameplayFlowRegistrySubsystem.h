@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Skyward Studios. All Rights Reserved.
 
 #pragma once
 
@@ -6,6 +6,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "GameplayFlowRegistrySubsystem.generated.h"
 
+class UGameplayFlowRegistry;
 class IGameplayFlowRegistryInterface;
 
 /**
@@ -18,7 +19,7 @@ class GAMEPLAYFLOW_API UGameplayFlowRegistrySubsystem : public UGameInstanceSubs
 
 public:
 	UPROPERTY(Config)
-	TSoftClassPtr<UObject> DefaultRegistryClass;
+	TSoftClassPtr<UGameplayFlowRegistry> DefaultRegistryClass;
 
 	UGameplayFlowRegistrySubsystem();
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;

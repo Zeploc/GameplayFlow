@@ -1,5 +1,5 @@
-#include "GameplayFlowRegistry.h"
-#include "GameplayFlowRegistrySubsystem.h"
+#include "Registry/GameplayFlowRegistry.h"
+#include "Registry/GameplayFlowRegistrySubsystem.h"
 #include "Misc/AutomationTest.h"
 #include "Tests/AutomationCommon.h"
 
