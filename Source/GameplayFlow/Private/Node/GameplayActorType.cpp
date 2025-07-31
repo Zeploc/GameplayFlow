@@ -138,6 +138,24 @@ void UGameplayActorType::CleanUp()
 	// TODO: Unbind actor listen link
 }
 
+FString UGameplayActorType::K2_GetNodeDisplay() const
+{
+#if WITH_EDITOR
+	return GetNodeDisplay();
+#else
+	return FString();
+#endif
+}
+
+FString UGameplayActorType::K2_GetDebugDisplay() const
+{
+#if WITH_EDITOR
+	return GetDebugDisplay();
+#else
+	return FString();
+#endif
+}
+
 #if WITH_EDITOR
 FString UGameplayActorType::GetNodeDisplay() const
 {
