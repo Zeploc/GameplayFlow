@@ -23,23 +23,6 @@ void UGameplayActorType::ItemFound(AActor* RegisteredItem)
 	TryRegisterActor();
 }
 
-void UGameplayActorType::TrySetDefaultActorTarget(UObject* Outer, TObjectPtr<UGameplayActorType>& ActorTarget)
-{
-	if (ActorTarget)
-	{
-		// Already set
-		return;
-	}
-	if (!IsValid(Outer))
-	{
-		// Not valid outer
-		return;
-	}
-	EObjectFlags Flags = RF_Public;
-	Flags = Flags | (Outer->GetOuter() && Outer->GetOuter()->HasAnyFlags(RF_ClassDefaultObject) ? RF_ArchetypeObject : RF_NoFlags);
-	ActorTarget = NewObject<UGameplayActorType_Owner>(Outer, UGameplayActorType_Owner::StaticClass(), NAME_None, Flags);
-}
-
 AActor* UGameplayActorType_Player::TryResolveActor()
 {
 	return UGameplayStatics::GetPlayerPawn(this, 0);
@@ -75,6 +58,7 @@ AActor* UGameplayActorType_Instigator::TryResolveActor()
 	return GameplayFlowComponent->GetFlowInstigator();
 }
 
+#if WITH_EDITOR
 FString UGameplayActorType_LevelActor::GetNodeDisplay() const
 {
 	FString NodeDisplay = Super::GetNodeDisplay();
@@ -89,6 +73,7 @@ FString UGameplayActorType_LevelActor::GetNodeDisplay() const
 	}
 	return NodeDisplay + TargetActor.GetAssetName() + " (Unloaded)";
 }
+#endif
 
 AActor* UGameplayActorType_LevelActor::TryResolveActor()
 {
@@ -153,6 +138,25 @@ void UGameplayActorType::CleanUp()
 	// TODO: Unbind actor listen link
 }
 
+FString UGameplayActorType::K2_GetNodeDisplay() const
+{
+#if WITH_EDITOR
+	return GetNodeDisplay();
+#else
+	return FString();
+#endif
+}
+
+FString UGameplayActorType::K2_GetDebugDisplay() const
+{
+#if WITH_EDITOR
+	return GetDebugDisplay();
+#else
+	return FString();
+#endif
+}
+
+#if WITH_EDITOR
 FString UGameplayActorType::GetNodeDisplay() const
 {
 	return GetClass()->GetDisplayNameText().ToString();
@@ -166,6 +170,24 @@ FString UGameplayActorType::GetDebugDisplay() const
 	}
 	return "None";
 }
+
+void UGameplayActorType::TrySetDefaultActorTarget(UObject* Outer, TObjectPtr<UGameplayActorType>& ActorTarget)
+{
+	if (ActorTarget)
+	{
+		// Already set
+		return;
+	}
+	if (!IsValid(Outer))
+	{
+		// Not valid outer
+		return;
+	}
+	EObjectFlags Flags = RF_Public;
+	Flags = Flags | (Outer->GetOuter() && Outer->GetOuter()->HasAnyFlags(RF_ClassDefaultObject) ? RF_ArchetypeObject : RF_NoFlags);
+	ActorTarget = NewObject<UGameplayActorType_Owner>(Outer, UGameplayActorType_Owner::StaticClass(), NAME_None, Flags);
+}
+#endif
 
 void UGameplayActorType::UnregisterActor(AActor* Actor, bool bBroadcastLost)
 {

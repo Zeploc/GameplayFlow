@@ -23,12 +23,15 @@ public:
 	virtual AActor* GetActor() const;
 	virtual void CleanUp();
 
-	UFUNCTION(BlueprintPure, Category="Gameplay Actor Type")
+	UFUNCTION(BlueprintPure, DisplayName="Get Node Display", Category="Gameplay Actor Type")
+	FString K2_GetNodeDisplay() const;
+	UFUNCTION(BlueprintPure, DisplayName="Get Debug Display", Category="Gameplay Actor Type")
+	FString K2_GetDebugDisplay() const;
+	
+#if WITH_EDITOR
 	virtual FString GetNodeDisplay() const;
-	UFUNCTION(BlueprintPure, Category="Gameplay Actor Type")
 	virtual FString GetDebugDisplay() const;
 
-#if WITH_EDITOR
 	static void TrySetDefaultActorTarget(UObject* Outer, TObjectPtr<UGameplayActorType>& ActorTarget);
 #endif
 	
@@ -85,7 +88,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Actor")
 	TSoftObjectPtr<AActor> TargetActor;
 	
+#if WITH_EDITOR
 	virtual FString GetNodeDisplay() const override;
+#endif
 
 	// TODO: Hook into dynamic spawning in
 	
