@@ -6,11 +6,6 @@
 #include "GameplayFlowLogs.h"
 #include "Registry/GameplayFlowRegistry.h"
 
-/**
- * @brief Constructs the subsystem and sets the default registry class.
- *
- * Initializes the subsystem with the default gameplay flow registry class.
- */
 UGameplayFlowRegistrySubsystem::UGameplayFlowRegistrySubsystem()
 {
 	// Default initialize with base.. should probably be done elsewhere
@@ -18,11 +13,6 @@ UGameplayFlowRegistrySubsystem::UGameplayFlowRegistrySubsystem()
 	DefaultRegistryClass = UGameplayFlowRegistry::StaticClass();
 }
 
-/**
- * @brief Initializes the subsystem and sets up the default gameplay flow registry.
- *
- * Calls the superclass initialization and, if a default registry class is specified, loads and initializes the registry synchronously.
- */
 void UGameplayFlowRegistrySubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
@@ -33,14 +23,6 @@ void UGameplayFlowRegistrySubsystem::Initialize(FSubsystemCollectionBase& Collec
 	}
 }
 
-/**
- * @brief Initializes the gameplay flow registry with the provided registry instance.
- *
- * Replaces any existing registry with the given instance, performing cleanup if necessary. Returns true if the new registry is successfully initialized; otherwise, returns false.
- *
- * @param NewRegistry The registry instance to initialize.
- * @return true if initialization succeeds; false otherwise.
- */
 bool UGameplayFlowRegistrySubsystem::InitializeRegistry(const TScriptInterface<IGameplayFlowRegistryInterface>& NewRegistry)
 {
 	if (!NewRegistry)
@@ -64,14 +46,6 @@ bool UGameplayFlowRegistrySubsystem::InitializeRegistry(const TScriptInterface<I
 	return bInitialize;
 }
 
-/**
- * @brief Initializes the gameplay flow registry using the specified class type.
- *
- * Attempts to create and initialize a new registry instance from the provided class. If the class pointer is null or does not implement the required interface, a warning is logged. Returns true if the registry is successfully initialized; otherwise, returns false.
- *
- * @param RegistryClass The class type to instantiate as the new registry.
- * @return true if the registry was successfully initialized; false otherwise.
- */
 bool UGameplayFlowRegistrySubsystem::InitializeRegistry(const UClass* RegistryClass)
 {
 	if (!RegistryClass)
@@ -87,12 +61,6 @@ bool UGameplayFlowRegistrySubsystem::InitializeRegistry(const UClass* RegistryCl
 	return InitializeRegistry(NewRegistry);
 }
 
-/**
- * @brief Deinitializes and cleans up the currently active gameplay flow registry.
- *
- * If a registry is set, calls its cleanup method, logs the result, and clears the internal reference.
- * @return true if the registry was cleaned up successfully; false if no registry was set or cleanup failed.
- */
 bool UGameplayFlowRegistrySubsystem::DeinitializeRegistry()
 {
 	if (!Registry)
