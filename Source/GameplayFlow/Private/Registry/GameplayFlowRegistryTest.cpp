@@ -1,5 +1,5 @@
-#include "GameplayFlowRegistry.h"
-#include "GameplayFlowRegistrySubsystem.h"
+#include "Registry/GameplayFlowRegistry.h"
+#include "Registry/GameplayFlowRegistrySubsystem.h"
 #include "Misc/AutomationTest.h"
 #include "Tests/AutomationCommon.h"
 
@@ -13,7 +13,7 @@ void FGameplayFlowRegistryTest::Define() {
 		const FString MapName = TEXT("AutomationTest");
 		if (!TestTrue("Open automation map", AutomationOpenMap(MapName, true)))
 		{
-			return false;
+			return;
 		}
 		UWorld* World = nullptr;
 		for (const FWorldContext& Context : GEngine->GetWorldContexts())
@@ -26,11 +26,11 @@ void FGameplayFlowRegistryTest::Define() {
 		}
 		if (!TestNotNull("World valid", World))
 		{
-			return false;
+			return;
 		}
 		if (!TestNotNull("Game Instance valid", World->GetGameInstance()))
 		{
-			return false;
+			return;
 		}
 		RegistrySubsystem = World->GetGameInstance()->GetSubsystem<UGameplayFlowRegistrySubsystem>();
 		TestNotNull("Registry valid", RegistrySubsystem);
@@ -38,7 +38,6 @@ void FGameplayFlowRegistryTest::Define() {
 		{
 			RegistrySubsystem->DeinitializeRegistry();
 		}
-		return true;
 	});
 	It("Class Initialize", [this](){
 		UClass* NullClass = nullptr;

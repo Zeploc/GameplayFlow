@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Skyward Studios. All Rights Reserved.
 
 
 #include "Registry/GameplayFlowRegistry.h"

@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Copyright Skyward Studios. All Rights Reserved.
 
 
 #include "Registry/GameplayFlowRegistrySubsystem.h"
@@ -8,9 +8,11 @@
 
 UGameplayFlowRegistrySubsystem::UGameplayFlowRegistrySubsystem()
 {
-	// Default initialize with base.. should probably be done elsewhere
-	// Change to config set
-	DefaultRegistryClass = UGameplayFlowRegistry::StaticClass();
+	// Only set if default not already configured
+	if (!DefaultRegistryClass)
+	{
+		DefaultRegistryClass = UGameplayFlowRegistry::StaticClass();
+	}
 }
 
 void UGameplayFlowRegistrySubsystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -55,7 +57,8 @@ bool UGameplayFlowRegistrySubsystem::InitializeRegistry(const UClass* RegistryCl
 	}
 	if (!RegistryClass->ImplementsInterface(UGameplayFlowRegistryInterface::StaticClass()))
 	{
-		GAMEPLAY_FLOW_LOG_WARNING("Can't initialize registry of class %s, is does not implement %s!", *RegistryClass->GetName(), *UGameplayFlowRegistryInterface::StaticClass()->GetName());
+		GAMEPLAY_FLOW_LOG_WARNING("Can't initialize registry of class %s, it does not implement %s!", *RegistryClass->GetName(), *UGameplayFlowRegistryInterface::StaticClass()->GetName());
+		return false;
 	}
 	const TObjectPtr<UObject> NewRegistry = NewObject<UObject>(this, RegistryClass);
 	return InitializeRegistry(NewRegistry);
