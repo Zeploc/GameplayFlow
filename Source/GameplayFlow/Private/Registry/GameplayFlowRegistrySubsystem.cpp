@@ -57,7 +57,7 @@ bool UGameplayFlowRegistrySubsystem::InitializeRegistry(const UClass* RegistryCl
 	}
 	if (!RegistryClass->ImplementsInterface(UGameplayFlowRegistryInterface::StaticClass()))
 	{
-		GAMEPLAY_FLOW_LOG_WARNING("Can't initialize registry of class %s, is does not implement %s!", *RegistryClass->GetName(), *UGameplayFlowRegistryInterface::StaticClass()->GetName());
+		GAMEPLAY_FLOW_LOG_WARNING("Can't initialize registry of class %s, it does not implement %s!", *RegistryClass->GetName(), *UGameplayFlowRegistryInterface::StaticClass()->GetName());
 		return false;
 	}
 	const TObjectPtr<UObject> NewRegistry = NewObject<UObject>(this, RegistryClass);
