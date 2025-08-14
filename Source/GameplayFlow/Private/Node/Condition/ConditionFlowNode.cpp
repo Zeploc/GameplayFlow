@@ -65,7 +65,9 @@ void UConditionGameplayFlowNode::OnEventConditionChanged(UGameplayFlowCondition*
 void UConditionGameplayFlowNode::Cleanup()
 {
 	Super::Cleanup();
+#if WITH_EDITOR
 	TriggeredCount = 0;
+#endif
 }
 
 void UConditionGameplayFlowNode::UpdateConditionState()
@@ -91,10 +93,12 @@ void UConditionGameplayFlowNode::UpdateConditionState()
 		return;
 	}
 	bConditionsMet = bNewConditionMet;
+#if WITH_EDITOR
 	if (bConditionsMet)
 	{
 		TriggeredCount++;
 	}
+#endif
 	// Only finish if trigger once, otherwise should continue to trigger
 	const bool bFinish = bConditionsMet && bTriggerOnce;
 	TriggerOutput(bConditionsMet ? ConditionsMetPinName : ConditionsUnmetPinName, bFinish);
