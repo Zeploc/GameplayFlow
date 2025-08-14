@@ -183,7 +183,7 @@ void UGameplayActorType::TrySetDefaultActorTarget(UObject* Outer, TObjectPtr<UGa
 		// Not valid outer
 		return;
 	}
-	EObjectFlags Flags = RF_Public;
+	EObjectFlags Flags = RF_Public | RF_Transactional; // RF_Transactional will make the action undoable in the editor
 	Flags = Flags | (Outer->GetOuter() && Outer->GetOuter()->HasAnyFlags(RF_ClassDefaultObject) ? RF_ArchetypeObject : RF_NoFlags);
 	ActorTarget = NewObject<UGameplayActorType_Owner>(Outer, UGameplayActorType_Owner::StaticClass(), NAME_None, Flags);
 }
