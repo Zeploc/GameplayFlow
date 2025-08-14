@@ -23,9 +23,9 @@ public:
 	virtual AActor* GetActor() const;
 	virtual void CleanUp();
 
-	UFUNCTION(BlueprintPure, DisplayName="Get Node Display", Category="Gameplay Actor Type")
+	UFUNCTION(BlueprintPure, DisplayName="Get Node Display", Category="Gameplay Actor Type", meta=(DevelopmentOnly))
 	FString K2_GetNodeDisplay() const;
-	UFUNCTION(BlueprintPure, DisplayName="Get Debug Display", Category="Gameplay Actor Type")
+	UFUNCTION(BlueprintPure, DisplayName="Get Debug Display", Category="Gameplay Actor Type", meta=(DevelopmentOnly))
 	FString K2_GetDebugDisplay() const;
 	
 #if WITH_EDITOR
