@@ -62,16 +62,16 @@ AActor* UGameplayActorType_Instigator::TryResolveActor()
 FString UGameplayActorType_LevelActor::GetNodeDisplay() const
 {
 	FString NodeDisplay = Super::GetNodeDisplay();
-	NodeDisplay += ": ";
+	NodeDisplay += TEXT(": ");
 	if (TargetActor.IsNull())
 	{
-		return NodeDisplay + "None";
+		return NodeDisplay + TEXT("None");
 	}
 	if (TargetActor.IsValid())
 	{
 		return NodeDisplay + TargetActor->GetActorLabel();
 	}
-	return NodeDisplay + TargetActor.GetAssetName() + " (Unloaded)";
+	return NodeDisplay + TargetActor.GetAssetName() + TEXT(" (Unloaded)");
 }
 #endif
 
@@ -168,7 +168,7 @@ FString UGameplayActorType::GetDebugDisplay() const
 	{
 		return FoundLiveActor->GetName();
 	}
-	return "None";
+	return TEXT("None");
 }
 
 void UGameplayActorType::TrySetDefaultActorTarget(UObject* Outer, TObjectPtr<UGameplayActorType>& ActorTarget)
