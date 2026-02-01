@@ -10,7 +10,7 @@
 - [x] Documentation
 - [ ] Performance
 - [ ] Chore/CI
-- [ ] Breaking change (non–backwards compatible behavior or API)
+- [ ] Breaking change (non-backwards compatible behavior or API)
 
 ## Description
 * 
