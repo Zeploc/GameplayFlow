@@ -17,7 +17,7 @@ GameplayFlow is an Unreal Engine plugin that provides a flexible and powerful fl
 - Unreal Engine 5.4
 - C++ project support
 - Gameplay Ability System (for ability-related features)
-- [FlowGraph plugin](https://github.com/MothCocoon/FlowGraph) - 5.4 verison (commit `3c139e6f3eccbd01ad0f2960d3a33f957e777427` - yet to be updated)
+- [FlowGraph plugin](https://github.com/MothCocoon/FlowGraph) - 5.4 version (commit `3c139e6f3eccbd01ad0f2960d3a33f957e777427` - yet to be updated to most recent 5.4 release)
 - [Sky Ability Plugin](https://github.com/Zeploc/SkyAbilitySystem)
 
 ## Core Components
