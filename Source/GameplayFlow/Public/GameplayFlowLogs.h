@@ -16,3 +16,14 @@ GEngine->AddOnScreenDebugMessage(-1, 6.0f, FColor::Orange, FString::Printf(TEXT(
 UE_LOG(LogGameplayFlow, Error, TEXT(Format"\n[File:%hs] [Line: %i]"), ##__VA_ARGS__, __FILE__, __LINE__); \
 GEngine->AddOnScreenDebugMessage(-1, 6.0f, FColor::Red, FString::Printf(TEXT("Gameplay Flow: " Format), ##__VA_ARGS__));\
 }
+
+#define GAMEPLAY_FLOW_LOG_DISPLAY(Format, ...) \
+{ \
+UE_LOG(LogGameplayFlow, Display, TEXT(Format"\n[File:%hs] [Line: %i]"), ##__VA_ARGS__, __FILE__, __LINE__); \
+GEngine->AddOnScreenDebugMessage(-1, 6.0f, FColor::White, FString::Printf(TEXT("Gameplay Flow: " Format), ##__VA_ARGS__));\
+}
+
+#define GAMEPLAY_FLOW_LOG_INFO(Format, ...) \
+{ \
+UE_LOG(LogGameplayFlow, Log, TEXT(Format"\n[File:%hs] [Line: %i]"), ##__VA_ARGS__, __FILE__, __LINE__); \
+}
